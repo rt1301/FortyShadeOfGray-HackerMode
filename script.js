@@ -1,16 +1,14 @@
 window.onload = function()
 {
-  // var keys = ["Score 1","Score 2","Score 3","Score 4","Score 5"];
-  var key_easy = ["Score_Easy 1","Score_Easy 2","Score_Easy 3","Score_Easy 4","Score_Easy 5"];
-  var key_hard = ["Score_Hard 1","Score_Hard 2","Score_Hard 3","Score_Hard 4","Score_Hard 5"];
-
+  	var key_easy = ["Score_Easy 1","Score_Easy 2","Score_Easy 3","Score_Easy 4","Score_Easy 5"];
+  	var key_hard = ["Score_Hard 1","Score_Hard 2","Score_Hard 3","Score_Hard 4","Score_Hard 5"];
 	var colors = generateRandomColors();
 	var grid= document.getElementsByClassName("grid")[0];
-  var rows= 4;
-  var columns = 5;
+  	var rows= 4;
+  	var columns = 5;
 	var Ids = [100,200,300,400,500];
 	var k=0;
-  var x_easy=0,x_hard=0;
+  	var x_easy=0,x_hard=0;
 	var order = [];
 	var ugNum = [];
 	var lgNum = [];
@@ -19,22 +17,20 @@ window.onload = function()
 	var index_lg = [];
 	var index_ug = [];
 	var sec,ms,count,sec_alt,ms_alt;
-  var message,game,score;
-  var resetBtn = document.getElementById("reset");
-  var easyBtn = document.getElementById("easyBtn");
-  var hardBtn = document.getElementById("hardBtn");
-  var mode = true;
-  var stopHard = false;
-  var stopEasy = false;
-  var j=0;
-  // var counter = 5;
-  var counter_easy =5;
-  var counter_hard = 5;
-  // var ls_array = [];
-  var ls_arrayEasy = [];
-  var ls_arrayHard = [];
-  var is_playing = false;
-  var sound = new Audio("mouse_click.mp3");
+  	var message,game,score;
+  	var resetBtn = document.getElementById("reset");
+  	var easyBtn = document.getElementById("easyBtn");
+  	var hardBtn = document.getElementById("hardBtn");
+  	var mode = true;
+  	var stopHard = false;
+  	var stopEasy = false;
+  	var j=0;
+  	var counter_easy =5;
+  	var counter_hard = 5;
+  	var ls_arrayEasy = [];
+  	var ls_arrayHard = [];
+  	var is_playing = false;
+  	var sound = new Audio("mouse_click.mp3");
 
 	for(var i=0;i<40;i++)
     {
@@ -57,8 +53,6 @@ window.onload = function()
           nNode.setAttribute("id", order[k]);
           k++;
           rNode.appendChild(nNode);
-          
-          
         }
     }
     k=0;
@@ -74,11 +68,9 @@ window.onload = function()
       document.querySelector(".time").classList.remove("fade");
       var bestScore = document.getElementById("bestScore");
       var gameNum = document.getElementById("GameNum");
-      // bestScore.textContent = "0" + sec + ":" + ms + "0";
       displayScore(ls_arrayEasy);
       gameNum.textContent = counter_easy.toString();
       is_playing = false;
-      // localStorage.clear();
       mode = false;
       easyBtn.classList.add("selected");
       hardBtn.classList.remove("selected");
@@ -103,7 +95,6 @@ window.onload = function()
     displayScore(ls_arrayHard);
     gameNum.textContent = counter_hard.toString();
     is_playing = false;
-    // localStorage.clear();
     mode = true;
     hardBtn.classList.add("selected");
     easyBtn.classList.remove("selected");
@@ -254,8 +245,6 @@ function content(gridNum)
     {
         items[i].textContent = gridNum[i];
     }
-    
-
 }
 content(lgNum);
 lgColor(index_lg);
@@ -314,11 +303,11 @@ start.addEventListener("click",stopwatch.start);
 // endGame Function
 function endGame(counter, mode)
 {
-  is_playing = false;
-  resetBtn.textContent = "New Game";
-  stopwatch.stop();
+  	is_playing = false;
+  	resetBtn.textContent = "New Game";
+  	stopwatch.stop();
   // To remove all the tiles after every round
-  var elements = document.getElementsByClassName("grid-items");
+  	var elements = document.getElementsByClassName("grid-items");
     for(var i=0;i<elements.length;i++)
     {
       elements[i].classList.add("fade");
@@ -334,8 +323,8 @@ function endGame(counter, mode)
       localStorage.setItem(game,score);
 
      }
-        sec = 0;
-        ms = 0;  
+    sec = 0;
+    ms = 0;  
 }
 
 // Click Tile function
@@ -362,21 +351,21 @@ function check(index,start)
                   current_num++;
                   next_num++;
                   var shade = ugNum[j];
-				          this.textContent = ugNum[j] ;
+				  this.textContent = ugNum[j] ;
                   j++;
                   this.style.backgroundColor = colors[40-shade];
                   this.classList.toggle("fade"); 
                 }
                 else
                 {
-                  is_playing = true;
+                    is_playing = true;
                 	this.classList.add("fade");
                 	check(index_ug);
                 	current_num++;
                 }
                 if(current_num>40)
                 {
-                  is_playing = false;
+                  	is_playing = false;
                 	stopwatch.stop();
                 	endGame(counter_hard,"Hard ");
                   return;
@@ -396,11 +385,9 @@ function checkEasy(index,start)
   for(var i=0;i<40;i++)
     {
         
-        var element = document.getElementById(index[i]);
+         var element = document.getElementById(index[i]);
          element.addEventListener("click", function(){
-          var click= Number(this.textContent);
-            
-
+         var click= Number(this.textContent);
             if(click === current_num)
             {
               is_playing = true;
@@ -428,8 +415,8 @@ function generateRandomColors()
     // Repeat num times
     for (var i = 0; i < 40; i++) 
     {
-         // get random no. and push it into the array
-         arr.push(colorShades());
+    // get random no. and push it into the array
+    arr.push(colorShades());
     }
     // return  the array
     var sorted = arr.sort();
@@ -467,13 +454,13 @@ function stopGame(counter,stop)
   stopwatch.stop();
   var best = document.getElementById("bestScore").textContent;
   var final_score = document.getElementById("scoreDisplay");
- final_score.textContent = "Your Final Score is " + best;
+  final_score.textContent = "Your Final Score is " + best;
   document.querySelector(".time").classList.add("fade");
-   final_score.classList.remove('fade');
+  final_score.classList.remove('fade');
   localStorage.clear();
   counter = 5;
   stop = true;
-   deleteGrid();
+  deleteGrid();
 
 }
 // To store the values of local storage in an array an sorting that array
@@ -511,15 +498,14 @@ function displayScore(ls_array)
 function reset()
 {
 current_num = 1;
-
 stopwatch.stop();
 sec = 0;
 ms = 0;
 stopwatch.update("0" + sec + ":" + ms + "0");
- _removeClasses();
- document.querySelector(".time").classList.remove('fade');
- document.getElementById("scoreDisplay").classList.add('fade');
- document.getElementById("scoreDisplay").textContent = "Your Score is" + sec + ":" + ms;
+_removeClasses();
+document.querySelector(".time").classList.remove('fade');
+document.getElementById("scoreDisplay").classList.add('fade');
+document.getElementById("scoreDisplay").textContent = "Your Score is" + sec + ":" + ms;
 }
 
 // Function EasyMode
@@ -554,9 +540,9 @@ function easyMode()
 // Function Hard Mode
 function hardMode()
 {
-       rows = 4;
-       columns = 5;
-       current_num = 1;
+      rows = 4;
+      columns = 5;
+      current_num = 1;
       create(rows,columns);
       shuffle(lgNum);
       shuffle(ugNum);
