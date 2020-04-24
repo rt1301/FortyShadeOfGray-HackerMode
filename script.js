@@ -1,12 +1,16 @@
 window.onload = function()
 {
-  var keys = ["Score 1","Score 2","Score 3","Score 4","Score 5"];
+  // var keys = ["Score 1","Score 2","Score 3","Score 4","Score 5"];
+  var key_easy = ["Score_Easy 1","Score_Easy 2","Score_Easy 3","Score_Easy 4","Score_Easy 5"];
+  var key_hard = ["Score_Hard 1","Score_Hard 2","Score_Hard 3","Score_Hard 4","Score_Hard 5"];
+
 	var colors = generateRandomColors();
 	var grid= document.getElementsByClassName("grid")[0];
   var rows= 4;
   var columns = 5;
 	var Ids = [100,200,300,400,500];
-	var k=0,x=0;
+	var k=0;
+  var x_easy=0,x_hard=0;
 	var order = [];
 	var ugNum = [];
 	var lgNum = [];
@@ -20,10 +24,17 @@ window.onload = function()
   var easyBtn = document.getElementById("easyBtn");
   var hardBtn = document.getElementById("hardBtn");
   var mode = true;
+  var stopHard = false;
+  var stopEasy = false;
   var j=0;
-  var counter = 5;
-  var ls_array = [];
+  // var counter = 5;
+  var counter_easy =5;
+  var counter_hard = 5;
+  // var ls_array = [];
+  var ls_arrayEasy = [];
+  var ls_arrayHard = [];
   var is_playing = false;
+  var sound = new Audio("mouse_click.mp3");
 
 	for(var i=0;i<40;i++)
     {
@@ -60,18 +71,23 @@ window.onload = function()
       if(!is_playing)
       {
       reset();
+      document.querySelector(".time").classList.remove("fade");
       var bestScore = document.getElementById("bestScore");
       var gameNum = document.getElementById("GameNum");
-      bestScore.textContent = "0" + sec + ":" + ms + "0";
-      counter = 5;
-      gameNum.textContent = counter.toString();
+      // bestScore.textContent = "0" + sec + ":" + ms + "0";
+      displayScore(ls_arrayEasy);
+      gameNum.textContent = counter_easy.toString();
       is_playing = false;
-      localStorage.clear();
+      // localStorage.clear();
       mode = false;
       easyBtn.classList.add("selected");
       hardBtn.classList.remove("selected");
       deleteGrid();
       easyMode();
+      if(stopEasy)
+      {
+        document.querySelector(".time").classList.add("fade");
+      }
       }
       
     });
@@ -81,18 +97,22 @@ window.onload = function()
     if(!is_playing)
     {
     reset();
+    document.querySelector(".time").classList.remove("fade");
     var bestScore = document.getElementById("bestScore");
     var gameNum = document.getElementById("GameNum");
-    bestScore.textContent = "0" + sec + ":" + ms + "0";
-    counter = 5;
-    gameNum.textContent = counter.toString();
+    displayScore(ls_arrayHard);
+    gameNum.textContent = counter_hard.toString();
     is_playing = false;
-    localStorage.clear();
+    // localStorage.clear();
     mode = true;
     hardBtn.classList.add("selected");
     easyBtn.classList.remove("selected");
     deleteGrid();
     hardMode();
+    if(stopHard)
+    {
+      document.querySelector(".time").classList.add("fade");
+    }
     }
     
   });
@@ -100,22 +120,43 @@ window.onload = function()
 // Reset Button
 resetBtn.addEventListener("click",function()
 {
- 
+ var gameNum = document.getElementById("GameNum");
   if(this.textContent === "New Game")
   {
-     if(counter>0)
-   {
-    counter--;
-    lsitems();
-    displayScore();
-   }
-   if(counter === 0)
-   {
+    
+   if(mode)
+    {
+      lsitems(ls_arrayHard,key_hard,x_hard);
+      displayScore(ls_arrayHard);
+      
+      if(counter_hard>0)
+      {
+        counter_hard--;
+      }
+      gameNum.textContent = counter_hard.toString();
+      if(counter_hard === 0)
+     {
     stopwatch.stop();
 
+     }
+    }
+    else
+    {
+      lsitems(ls_arrayEasy,key_easy,x_easy);
+      displayScore(ls_arrayEasy);
+      
+       if(counter_easy>0)
+      {
+        counter_easy--;
+      }
+      gameNum.textContent = counter_easy.toString();
+      if(counter_easy === 0)
+     {
+    stopwatch.stop();
+
+     }
+    
    }
-  var gameNum = document.getElementById("GameNum");
-  gameNum.textContent = counter.toString();
   }
   if(this.textContent === "Reset")
   {
@@ -130,16 +171,9 @@ resetBtn.addEventListener("click",function()
     reset();
     deleteGrid();
     hardMode();
-  }
-  else
+    if(counter_hard === 0)
   {
-    reset();
-    deleteGrid();
-    easyMode();
-  }
-  if(counter === 0)
-  {
-    stopGame();
+    stopGame(counter_hard,stopHard);
     easyBtn.classList.add("fade");
     this.onclick = function()
     {
@@ -147,8 +181,23 @@ resetBtn.addEventListener("click",function()
       location.reload();
     }
   }
-
-  
+  }
+  else
+  {
+    if(counter_easy === 0)
+  {
+    stopGame(counter_easy,stopEasy);
+    easyBtn.classList.add("fade");
+    this.onclick = function()
+    {
+      localStorage.clear();
+      location.reload();
+    }
+  }
+    reset();
+    deleteGrid();
+    easyMode();
+  } 
 });
     for (var i = 0; i <20; i++) 
 	{
@@ -263,7 +312,7 @@ var stopwatch =
 };
 start.addEventListener("click",stopwatch.start);
 // endGame Function
-function endGame()
+function endGame(counter, mode)
 {
   is_playing = false;
   resetBtn.textContent = "New Game";
@@ -275,7 +324,7 @@ function endGame()
       elements[i].classList.add("fade");
     }
     // To display the score after every round
-     game= "Score " + counter.toString();
+     game= "Score_" + mode + counter.toString();
      message = document.getElementById("scoreDisplay");
      message.classList.remove("fade");
      score = document.getElementById("timer").textContent;
@@ -301,7 +350,7 @@ function check(index,start)
          element.addEventListener("click", function()
          {
             var click= Number(this.textContent);
-        
+            sound.play();
             
             if(click === current_num)
             {
@@ -329,7 +378,7 @@ function check(index,start)
                 {
                   is_playing = false;
                 	stopwatch.stop();
-                	endGame();
+                	endGame(counter_hard,"Hard ");
                   return;
                 }
                
@@ -363,7 +412,7 @@ function checkEasy(index,start)
             if(current_num>40)
             {
               is_playing = false;
-              endGame();
+              endGame(counter_easy,"Easy ");
               return;
             }
             
@@ -413,7 +462,7 @@ function _removeClasses ()
 }
 
 // Stop Game Function
-function stopGame()
+function stopGame(counter,stop)
 {
   stopwatch.stop();
   var best = document.getElementById("bestScore").textContent;
@@ -422,12 +471,13 @@ function stopGame()
   document.querySelector(".time").classList.add("fade");
    final_score.classList.remove('fade');
   localStorage.clear();
-  counter == 5;
+  counter = 5;
+  stop = true;
    deleteGrid();
 
 }
 // To store the values of local storage in an array an sorting that array
-function lsitems()
+function lsitems(ls_array,keys,x)
 {
   if(localStorage.length>0)
   {
@@ -441,7 +491,7 @@ function lsitems()
   return;
 }
 // To display best score function
-function displayScore()
+function displayScore(ls_array)
 {
   if(localStorage.length>0)
   {
@@ -449,9 +499,16 @@ function displayScore()
     display.textContent = ls_array[0];
 
   }
+  if(!ls_array[0])
+  {
+    var display = document.getElementById("bestScore");
+    display.textContent = "00:00";
+
+  }
+ 
 }
 // Reset function
-function reset(numbers,mode)
+function reset()
 {
 current_num = 1;
 
