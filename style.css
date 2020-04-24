@@ -1,0 +1,122 @@
+body
+{
+  background-color: #232323;
+  font-family: 'Montserrat', sans-serif;
+  margin:0;
+}
+div.grid{
+    margin:5% auto;
+    display: grid;
+    justify-content: center;
+    align-items: stretch;
+    
+ }
+.row{
+     padding-bottom: 0px;
+     margin: unset;
+     justify-items: normal;
+     display: flex;
+     align-items: center;
+
+ }
+.row.grid-items{
+  width: 200px;
+  height: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  
+ }
+button
+{
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  border: none;
+  background: none;
+  text-transform: uppercase;
+  height: 100%;
+  font-weight:600;
+  letter-spacing: 1px;
+  color: steelblue;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  outline: none;
+}
+ .grid-items{
+   
+     float: left;
+     padding: 30px;
+     margin: 1px;
+     border: 2px solid white;
+     width: 30px;
+     height: 30px;
+     font-size: xx-large;
+     font-weight: bold;
+     text-align: center;
+     border-radius: 12%;
+ }
+#navbar
+{
+    background-color: white;
+    height: 30px;
+    text-align: center;
+    color: black;
+}
+ .selected
+ {
+  background-color: steelblue;
+  color: white;
+ }
+ .fade
+ {
+ 	opacity: 0;
+ 	transition: opacity 0.3s;
+
+ }
+ h1
+ {
+  color: white;
+  text-align: center;
+  background-color: steelblue;
+  margin:0;
+  font-size: 3.5rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 1.2;
+  padding: 20px 0px;
+ }
+ div.time
+ {
+  color: white;
+  font-size: 2rem;
+  font-weight: normal;
+  text-align: center;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  background-color: steelblue;
+  transition: all 0.3s;
+ 
+}
+#scoreDisplay{
+ display: inline-block;
+ width: 20%;
+ font-size: 1.5rem;
+ color: steelblue;
+ font-weight: 600;
+}
+#timeTab{
+  float: left;
+  margin-left: 7%;
+}
+#bestScoreTab{
+  float: center;
+}
+#gameTab{
+  float: right;
+  margin-right: 7%;
+}
+button:hover
+{
+    color: white;
+    background-color: steelblue;
+}
