@@ -120,3 +120,51 @@ button:hover
     color: white;
     background-color: steelblue;
 }
+@media(min-device-width: 320px) and (max-device-width: 480px){
+ div.time{
+  font-size: 0.65rem;
+  outline: none;
+ }
+ #navbar{
+  font-size: 1rem;
+  height: 20px;
+  vertical-align: baseline;
+ }
+ button{
+  font-size: 0.60rem;
+  position: relative;
+  vertical-align: top;
+  height: 100%;
+  outline: none;
+ }
+ #scoreDisplay{
+   font-size: 0.5rem;
+  position: relative;
+  vertical-align: baseline;
+  margin: 0;
+  height: 10px;
+ }
+ #timeTab{
+  float: left;
+  margin-left: 1%;
+}
+#bestScoreTab{
+  float: center;
+}
+#gameTab{
+  float: right;
+  margin-right: 1%;
+}
+h1{
+  font-size: 2rem;
+}
+div.grid{
+  max-width: 100%;
+  margin-top: 20%;
+}
+.grid-items{
+  padding: 1px;
+  font-size: medium;
+  text-align: center;
+}
+}
