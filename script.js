@@ -1,14 +1,14 @@
 window.onload = function()
 {
-  	var key_easy = ["Score_Easy 1","Score_Easy 2","Score_Easy 3","Score_Easy 4","Score_Easy 5"];
-  	var key_hard = ["Score_Hard 1","Score_Hard 2","Score_Hard 3","Score_Hard 4","Score_Hard 5"];
+  var key_easy = ["Score_Easy 1","Score_Easy 2","Score_Easy 3","Score_Easy 4","Score_Easy 5"];
+  var key_hard = ["Score_Hard 1","Score_Hard 2","Score_Hard 3","Score_Hard 4","Score_Hard 5"];
 	var colors = generateRandomColors();
 	var grid= document.getElementsByClassName("grid")[0];
-  	var rows= 4;
-  	var columns = 5;
+  var rows= 4;
+  var columns = 5;
 	var Ids = [100,200,300,400,500];
 	var k=0;
-  	var x_easy=0,x_hard=0;
+  var x_easy=0,x_hard=0;
 	var order = [];
 	var ugNum = [];
 	var lgNum = [];
@@ -17,20 +17,20 @@ window.onload = function()
 	var index_lg = [];
 	var index_ug = [];
 	var sec,ms,count,sec_alt,ms_alt;
-  	var message,game,score;
-  	var resetBtn = document.getElementById("reset");
-  	var easyBtn = document.getElementById("easyBtn");
-  	var hardBtn = document.getElementById("hardBtn");
-  	var mode = true;
-  	var stopHard = false;
-  	var stopEasy = false;
-  	var j=0;
-  	var counter_easy =5;
-  	var counter_hard = 5;
-  	var ls_arrayEasy = [];
-  	var ls_arrayHard = [];
-  	var is_playing = false;
-  	var sound = new Audio("mouse_click.mp3");
+  var message,game,score;
+  var resetBtn = document.getElementById("reset");
+  var easyBtn = document.getElementById("easyBtn");
+  var hardBtn = document.getElementById("hardBtn");
+  var mode = true;
+  var stopHard = false;
+  var stopEasy = false;
+  var j=0;
+  var counter_easy =5;
+  var counter_hard = 5;
+  var ls_arrayEasy = [];
+  var ls_arrayHard = [];
+  var is_playing = false;
+  var sound = new Audio("mouse_click.mp3");
 
 	for(var i=0;i<40;i++)
     {
@@ -384,9 +384,10 @@ function checkEasy(index,start)
 {
   for(var i=0;i<40;i++)
     {
-        
          var element = document.getElementById(index[i]);
-         element.addEventListener("click", function(){
+         element.addEventListener("click", function()
+         {
+         sound.play();
          var click= Number(this.textContent);
             if(click === current_num)
             {
